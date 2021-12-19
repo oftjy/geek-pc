@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
-
+import {
+  Router,
+  Route,
+  Switch,
+  Redirect,
+} from 'react-router-dom'
+import history from "@/utils/history";
+// 导入页面组件
+import Login from './pages/Login'
+import Layout from './pages/Layout'
+import { AuthRoute } from '@/components/AuthRoute'
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Router history={history}>
+      <div className="App">
+        <Switch>
+          <Redirect exact from="/" to="/home"></Redirect>
+          <AuthRoute path="/home" component={Layout}></AuthRoute>
+          {/* <Route path="/home" component={Layout}></Route> */}
+          <Route path="/login" component={Login}></Route>
+        </Switch>
+      </div>
+    </Router>
+  )
 }
 
-export default App;
+export default App
